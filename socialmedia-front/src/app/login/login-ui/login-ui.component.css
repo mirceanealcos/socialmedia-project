@@ -1,0 +1,16 @@
+.background {
+  width: 100%;
+  height: 100%;
+  background-color: #fff7ee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-success {
+  height: 50px;
+  width: 100px;
+  color: #fff7ee !important;
+  background-color: #c095ff !important;
+}
