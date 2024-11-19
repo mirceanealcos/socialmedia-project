@@ -1,6 +1,7 @@
 package com.mirceanealcos.socialmedia.service;
 
 import com.mirceanealcos.socialmedia.dto.user.UserDto;
+import com.mirceanealcos.socialmedia.dto.user.UserLoginDto;
 import com.mirceanealcos.socialmedia.dto.user.UserPostDto;
 
 import java.util.List;
@@ -12,5 +13,6 @@ public interface UserService {
     UserDto addUser(UserPostDto userDto);
     UserDto updateUser(Long id, UserPostDto userDto);
     void deleteUser(Long id);
+    boolean login(UserLoginDto loginDto) throws Exception;
 
 }

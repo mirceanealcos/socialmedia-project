@@ -1,7 +1,9 @@
 package com.mirceanealcos.socialmedia.controller;
 
+import com.mirceanealcos.socialmedia.dto.user.UserLoginDto;
 import com.mirceanealcos.socialmedia.dto.user.UserPostDto;
 import com.mirceanealcos.socialmedia.response.ErrorResponse;
+import com.mirceanealcos.socialmedia.response.LoginResponse;
 import com.mirceanealcos.socialmedia.service.UserService;
 import com.mirceanealcos.socialmedia.dto.user.UserDto;
 import lombok.extern.slf4j.Slf4j;
@@ -87,6 +89,19 @@ public class UserController {
         catch (Exception e) {
             log.error(e.getMessage(), e);
             return new ResponseEntity<>(new ErrorResponse(e.getClass().getCanonicalName(), e.getMessage(), "/users/" + id),
+                    INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/login")
+    public ResponseEntity<Object> login(UserLoginDto loginDto) {
+        try {
+            LoginResponse response = new LoginResponse(userService.login(loginDto));
+            return ResponseEntity.ok(response);
+        }
+        catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return new ResponseEntity<>(new ErrorResponse(e.getClass().getCanonicalName(), e.getMessage(), "/users/login"),
                     INTERNAL_SERVER_ERROR);
         }
     }

@@ -1,5 +1,6 @@
 package com.mirceanealcos.socialmedia.service.impl;
 
+import com.mirceanealcos.socialmedia.dto.user.UserLoginDto;
 import com.mirceanealcos.socialmedia.dto.user.UserPostDto;
 import com.mirceanealcos.socialmedia.entity.User;
 import com.mirceanealcos.socialmedia.repository.UserRepository;
@@ -79,5 +80,18 @@ public class UserServiceImpl implements UserService {
             throw new EntityNotFoundException("User with id " + id + " not found");
         }
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean login(UserLoginDto loginDto) {
+        User user = userRepository.findByEmail(loginDto.getEmail()).orElse(null);
+        Set<ConstraintViolation<UserLoginDto>> violations = validator.validate(loginDto);
+        if (!violations.isEmpty()) {
+            throw new ConstraintViolationException(violations);
+        }
+        if (user == null) {
+            return false;
+        }
+        return user.getPassword().equals(loginDto.getPassword());
     }
 }
