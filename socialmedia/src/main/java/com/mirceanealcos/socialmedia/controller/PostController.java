@@ -17,6 +17,7 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 @RestController
 @RequestMapping("/posts")
 @Slf4j
+@CrossOrigin(origins = "*")
 public class PostController {
 
     private final PostService postService;

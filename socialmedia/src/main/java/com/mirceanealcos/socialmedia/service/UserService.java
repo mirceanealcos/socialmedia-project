@@ -13,6 +13,6 @@ public interface UserService {
     UserDto addUser(UserPostDto userDto);
     UserDto updateUser(Long id, UserPostDto userDto);
     void deleteUser(Long id);
-    boolean login(UserLoginDto loginDto) throws Exception;
+    UserDto login(UserLoginDto loginDto) throws Exception;
 
 }

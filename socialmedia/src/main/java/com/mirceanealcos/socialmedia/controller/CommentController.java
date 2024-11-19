@@ -17,6 +17,7 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 @RestController
 @RequestMapping("/comments")
 @Slf4j
+@CrossOrigin(origins = "*")
 public class CommentController {
 
     private final CommentService commentService;

@@ -3,6 +3,7 @@ package com.mirceanealcos.socialmedia.service.impl;
 import com.mirceanealcos.socialmedia.dto.user.UserLoginDto;
 import com.mirceanealcos.socialmedia.dto.user.UserPostDto;
 import com.mirceanealcos.socialmedia.entity.User;
+import com.mirceanealcos.socialmedia.exception.LoginException;
 import com.mirceanealcos.socialmedia.repository.UserRepository;
 import com.mirceanealcos.socialmedia.service.UserService;
 import com.mirceanealcos.socialmedia.dto.user.UserDto;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Service
@@ -83,15 +85,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean login(UserLoginDto loginDto) {
+    public UserDto login(UserLoginDto loginDto) throws LoginException {
         User user = userRepository.findByEmail(loginDto.getEmail()).orElse(null);
         Set<ConstraintViolation<UserLoginDto>> violations = validator.validate(loginDto);
         if (!violations.isEmpty()) {
             throw new ConstraintViolationException(violations);
         }
         if (user == null) {
-            return false;
+            throw new EntityNotFoundException("User with email " + loginDto.getEmail() + " not found");
         }
-        return user.getPassword().equals(loginDto.getPassword());
+        if (user.getPassword().equals(loginDto.getPassword())) {
+            return UserDtoMapper.toUserDto(user);
+        }
+        throw new LoginException();
     }
 }

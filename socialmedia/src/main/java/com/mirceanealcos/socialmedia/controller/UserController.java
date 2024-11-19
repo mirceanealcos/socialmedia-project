@@ -2,6 +2,7 @@ package com.mirceanealcos.socialmedia.controller;
 
 import com.mirceanealcos.socialmedia.dto.user.UserLoginDto;
 import com.mirceanealcos.socialmedia.dto.user.UserPostDto;
+import com.mirceanealcos.socialmedia.exception.LoginException;
 import com.mirceanealcos.socialmedia.response.ErrorResponse;
 import com.mirceanealcos.socialmedia.response.LoginResponse;
 import com.mirceanealcos.socialmedia.service.UserService;
@@ -19,6 +20,7 @@ import static org.springframework.http.HttpStatus.*;
 @RestController
 @RequestMapping("/users")
 @Slf4j
+@CrossOrigin(origins = "*")
 public class UserController {
 
     private final UserService userService;
@@ -93,10 +95,10 @@ public class UserController {
         }
     }
 
-    @GetMapping("/login")
-    public ResponseEntity<Object> login(UserLoginDto loginDto) {
+    @PostMapping("/login")
+    public ResponseEntity<Object> login(@RequestBody UserLoginDto loginDto) {
         try {
-            LoginResponse response = new LoginResponse(userService.login(loginDto));
+            UserDto response = userService.login(loginDto);
             return ResponseEntity.ok(response);
         }
         catch (Exception e) {
