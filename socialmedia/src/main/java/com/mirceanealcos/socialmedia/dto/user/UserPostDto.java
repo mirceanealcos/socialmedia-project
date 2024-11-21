@@ -14,5 +14,7 @@ public class UserPostDto {
     private String name;
     @NotNull
     private String email;
+    @NotNull
+    private String password;
 
 }

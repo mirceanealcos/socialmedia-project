@@ -1,1 +1,17 @@
-<p>create-account-ui works!</p>
+<div class="background">
+  <mat-label style="font-size: 2em; margin-bottom: 1em;">Create new account</mat-label>
+  <mat-form-field style="width: 300px">
+    <mat-label>Email</mat-label>
+    <input matInput [(ngModel)]="email">
+  </mat-form-field>
+  <mat-form-field style="width: 300px">
+    <mat-label>Name</mat-label>
+    <input matInput type="text" [(ngModel)]="name">
+  </mat-form-field>
+  <mat-form-field style="width: 300px">
+    <mat-label>Password</mat-label>
+    <input matInput type="password" [(ngModel)]="password">
+  </mat-form-field>
+  <button mat-flat-button color="success" (click)="createAccount()">Create</button>
+  <mat-label style="font-size: 1em; margin-top: 1em;" *ngIf="showWarning">Email already in use by another account!</mat-label>
+</div>

@@ -6,7 +6,7 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {FormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
-import {LoginService} from "../login-data-access/login.service";
+import {LoginService} from "../data-access/login.service";
 import {NgIf} from "@angular/common";
 
 @Component({
@@ -45,7 +45,8 @@ export class LoginUiComponent {
   login() {
     if (this.email != null && this.email != "" && this.password != null && this.password != '') {
       this.loginService.login(this.email, this.password).subscribe(resp => {
-        console.log(resp);
+        localStorage.setItem("email", resp.email);
+        localStorage.setItem("name", resp.name);
         this.router.navigateByUrl("home");
       }, error => {
         console.log(error);
@@ -55,6 +56,10 @@ export class LoginUiComponent {
     else {
       this.showWarning = true;
     }
+  }
+
+  goToCreateAcc() {
+    this.router.navigateByUrl("new");
   }
 
 }

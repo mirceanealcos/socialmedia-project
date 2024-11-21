@@ -9,6 +9,6 @@
     <input matInput type="password" [(ngModel)]="password">
   </mat-form-field>
   <button mat-flat-button color="success" (click)="login()">Log in</button>
-  <button mat-flat-button color="success" style="margin-top: 1em">Create account</button>
+  <button mat-flat-button color="success" style="margin-top: 1em" (click)="goToCreateAcc()">Create account</button>
   <mat-label style="font-size: 1em; margin-top: 1em;" *ngIf="showWarning">The fields cannot be empty or the username/password combo is incorrect!</mat-label>
 </div>
