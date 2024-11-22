@@ -91,4 +91,28 @@ public class PostController {
         }
     }
 
+    @GetMapping("/pending/user/{id}")
+    public ResponseEntity<Object> findPendingPostsByUserId(@PathVariable Long id) {
+        try {
+            List<PostDto> dtoList = postService.findPendingPostsByUserId(id);
+            return ResponseEntity.ok(dtoList);
+        }
+        catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return new ResponseEntity<>(new ErrorResponse(e.getClass().getCanonicalName(), e.getMessage(), "/posts/user/" + id), INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/published")
+    public ResponseEntity<Object> findPublishedPosts() {
+        try {
+            List<PostDto> dtoList = postService.findAllPublishedPosts();
+            return ResponseEntity.ok(dtoList);
+        }
+        catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return new ResponseEntity<>(new ErrorResponse(e.getClass().getCanonicalName(), e.getMessage(), "/posts/published"), INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

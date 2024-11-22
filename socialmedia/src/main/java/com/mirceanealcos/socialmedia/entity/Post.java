@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "posts")
@@ -32,6 +33,8 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "users_id")
     private User user;
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments;
 
     @PrePersist
     protected void onCreate() {

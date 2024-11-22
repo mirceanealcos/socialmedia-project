@@ -30,4 +30,9 @@ public class Comment {
     @JoinColumn(name = "posts_id")
     private Post post;
 
+    @PrePersist
+    protected void onCreate() {
+        creationDate = new Date();
+    }
+
 }

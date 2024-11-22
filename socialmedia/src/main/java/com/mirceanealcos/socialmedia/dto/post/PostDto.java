@@ -1,8 +1,11 @@
 package com.mirceanealcos.socialmedia.dto.post;
 
+import com.mirceanealcos.socialmedia.dto.comment.CommentDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -13,5 +16,6 @@ public class PostDto {
     private String content;
     private String status;
     private String creationDate;
-    private Long userId;
+    private String userName;
+    private List<CommentDto> comments;
 }

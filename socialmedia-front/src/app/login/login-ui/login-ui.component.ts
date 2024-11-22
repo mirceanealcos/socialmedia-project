@@ -45,6 +45,7 @@ export class LoginUiComponent {
   login() {
     if (this.email != null && this.email != "" && this.password != null && this.password != '') {
       this.loginService.login(this.email, this.password).subscribe(resp => {
+        localStorage.setItem("id", resp.id);
         localStorage.setItem("email", resp.email);
         localStorage.setItem("name", resp.name);
         this.router.navigateByUrl("home");

@@ -13,5 +13,7 @@ public interface PostService {
     void deleteById(Long id);
     PostDto updatePost(Long id, PostUpdateDto postAddDto);
     List<PostDto> findPublishedPostsByUserId(Long userId);
+    List<PostDto> findPendingPostsByUserId(Long userId);
+    List<PostDto> findAllPublishedPosts();
 
 }

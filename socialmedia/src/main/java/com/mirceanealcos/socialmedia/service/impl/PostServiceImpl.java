@@ -88,4 +88,16 @@ public class PostServiceImpl implements PostService {
         List<Post> posts = postRepository.findPublishedPostsByUserId(userId);
         return posts.stream().map(PostDtoMapper::toPostDto).toList();
     }
+
+    @Override
+    public List<PostDto> findPendingPostsByUserId(Long userId) {
+        List<Post> posts = postRepository.findPendingPostsByUserId(userId);
+        return posts.stream().map(PostDtoMapper::toPostDto).toList();
+    }
+
+    @Override
+    public List<PostDto> findAllPublishedPosts() {
+        List<Post> posts = postRepository.findAllPublishedPosts();
+        return posts.stream().map(PostDtoMapper::toPostDto).toList();
+    }
 }
