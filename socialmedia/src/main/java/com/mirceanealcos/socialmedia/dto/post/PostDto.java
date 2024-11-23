@@ -17,5 +17,6 @@ public class PostDto {
     private String status;
     private String creationDate;
     private String userName;
+    private Long userId;
     private List<CommentDto> comments;
 }

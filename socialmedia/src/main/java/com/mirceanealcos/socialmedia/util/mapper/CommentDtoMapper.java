@@ -21,6 +21,7 @@ public class CommentDtoMapper {
         commentDto.setContent(comment.getContent());
         commentDto.setCreationDate(dateFormat.format(comment.getCreationDate()));
         commentDto.setUserName(comment.getUser().getName());
+        commentDto.setUserId(comment.getUser().getId());
         return commentDto;
     }
 

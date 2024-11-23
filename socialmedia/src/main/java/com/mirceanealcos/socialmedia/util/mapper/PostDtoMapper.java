@@ -30,6 +30,7 @@ public class PostDtoMapper {
         postDto.setStatus(post.getStatus().name());
         postDto.setCreationDate(dateFormat.format(post.getCreationDate()));
         postDto.setUserName(post.getUser().getName());
+        postDto.setUserId(post.getUser().getId());
         if (post.getComments() != null) {
             List<CommentDto> commentDtos = new ArrayList<>();
             post.getComments().stream().map(CommentDtoMapper::toCommentDto).forEach(commentDtos::add);

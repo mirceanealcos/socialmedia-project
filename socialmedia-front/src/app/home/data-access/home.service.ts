@@ -35,4 +35,20 @@ export class HomeService {
     return this.http.post(this.basePostURL, {title: title, content: content, userId: userId})
   }
 
+  public deleteCommentById(commentId: number): Observable<any> {
+    return this.http.delete(this.baseCommentURL + "/" + commentId);
+  }
+
+  public updateComment(commentId: number, commentContent: string): Observable<any> {
+    return this.http.put(this.baseCommentURL + "/" + commentId, {content: commentContent});
+  }
+
+  public deletePost(postId: number): Observable<any> {
+    return this.http.delete(this.basePostURL + "/" + postId);
+  }
+
+  public updatePost(postId: number, postContent: string, postTitle: string): Observable<any> {
+    return this.http.put(this.basePostURL + "/" + postId, {title: postTitle, content: postContent, status: "PENDING"})
+  }
+
 }

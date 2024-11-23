@@ -13,5 +13,6 @@ public class CommentDto {
     private String content;
     private String creationDate;
     private String userName;
+    private Long userId;
 
 }

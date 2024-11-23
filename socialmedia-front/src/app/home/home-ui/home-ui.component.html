@@ -11,6 +11,10 @@
   </div>
   <div class="main-page">
     <mat-card class="post" *ngFor="let post of feed; let i = index">
+      <div class="post-buttons" *ngIf="isOwnPost(post)">
+        <div class="edit-comment-icon" title="EDIT POST" (click)="toggleEditPost(post)"></div>
+        <div class="delete-comment-icon" title="REMOVE POST" (click)="deletePost(post.id)"></div>
+      </div>
       <mat-card-header style="display: flex; flex-direction: row; justify-content: start; align-items: start; width: 90%; padding: 10px 0 5px 0;">
         <mat-card-title>
           {{post.emoji}} {{post.userName}}
@@ -28,6 +32,10 @@
               <p style="margin: 0; font-size: 14px; font-weight:550;">{{comment.userName}}</p>
               <p style="margin: 0; font-size: 12px;">{{comment.content}}</p>
             </div>
+            <div class="comment-button-container" *ngIf="isOwnComment(comment)">
+              <div class="edit-comment-icon" title="EDIT COMMENT" (click)="toggleEditComment(comment.id, comment.content)"></div>
+              <div class="delete-comment-icon" title="REMOVE COMMENT" (click)="deleteComment(comment.id)"></div>
+            </div>
           </div>
         </div>
         <div class="add-comment-box">
@@ -41,6 +49,23 @@
       <input type="text" class="post-title" placeholder="Enter post title" [(ngModel)]="addPostTitle">
       <textarea type="text" class="add-post-content" placeholder="Think out loud.." [(ngModel)]="addPostContent"></textarea>
       <div class="publish-button" title="ADD POST" (click)="addPost()"></div>
+    </div>
+    <div class="edit-post-form" *ngIf="editPostToggle">
+      <h1 style="margin: 0; color: gray">Edit Post</h1>
+      <input type="text" class="post-title" [(ngModel)]="selectedPostTitle">
+      <textarea type="text" class="add-post-content" [(ngModel)]="selectedPostContent"></textarea>
+      <div class="comment-button-container" style="width: 50%; height: 10%; margin-top: 10px;">
+        <button class="form-button" (click)="updatePost()">Save</button>
+        <button class="form-button" (click)="untoggleEditPost()">Cancel</button>
+      </div>
+    </div>
+    <div class="edit-comment-form" *ngIf="editCommentToggle">
+      <h1 style="margin: 0; color: gray">Edit comment</h1>
+      <input type="text" class="post-title" [(ngModel)]="selectedCommentContent">
+      <div class="comment-button-container" style="width: 50%">
+        <button class="form-button" (click)="updateComment()">Save</button>
+        <button class="form-button" (click)="untoggleEditComment()">Cancel</button>
+      </div>
     </div>
     <div class="add-post-button" title="ADD NEW POST" (click)="addToggle = !addToggle">{{this.addToggle ? "+":"•••"}}</div>
   </div>
