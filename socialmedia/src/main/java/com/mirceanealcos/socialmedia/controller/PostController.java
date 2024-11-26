@@ -115,4 +115,40 @@ public class PostController {
         }
     }
 
+    @GetMapping("/pending")
+    public ResponseEntity<Object> findPendingPosts() {
+        try {
+            List<PostDto> dtoList = postService.findAllPendingPosts();
+            return ResponseEntity.ok(dtoList);
+        }
+        catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return new ResponseEntity<>(new ErrorResponse(e.getClass().getCanonicalName(), e.getMessage(), "/posts/published"), INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/params")
+    public ResponseEntity<Object> findByKeyword(@RequestParam String keyword) {
+        try {
+            List<PostDto> dtoList = postService.findByKeyword(keyword);
+            return ResponseEntity.ok(dtoList);
+        }
+        catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return new ResponseEntity<>(new ErrorResponse(e.getClass().getCanonicalName(), e.getMessage(), "/posts/params?keyword=" + keyword), INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/approve/{id}")
+    public ResponseEntity<Object> approvePost(@PathVariable Long id) {
+        try {
+            postService.approvePost(id);
+            return ResponseEntity.ok().build();
+        }
+        catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return new ResponseEntity<>(new ErrorResponse(e.getClass().getCanonicalName(), e.getMessage(), "/posts/approve/" + id), INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

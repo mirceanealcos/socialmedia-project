@@ -14,5 +14,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findPendingPostsByUserId(Long userId);
     @Query(value = "SELECT p from Post p WHERE p.status = 'PUBLISHED'")
     List<Post> findAllPublishedPosts();
-
+    @Query(value = "SELECT p FROM Post p WHERE (p.content LIKE  LOWER(CONCAT('%',?1,'%'))) OR (p.title LIKE LOWER(CONCAT('%',?1,'%'))) AND p.status = 'PUBLISHED'")
+    List<Post> findByKeyword(String keyword);
+    @Query(value = "SELECT p FROM Post p WHERE p.status='PENDING'")
+    List<Post> findAllPendingPosts();
 }

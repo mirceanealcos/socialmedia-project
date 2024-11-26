@@ -1,5 +1,6 @@
 package com.mirceanealcos.socialmedia.controller;
 
+import com.mirceanealcos.socialmedia.dto.user.MailDto;
 import com.mirceanealcos.socialmedia.dto.user.UserLoginDto;
 import com.mirceanealcos.socialmedia.dto.user.UserPostDto;
 import com.mirceanealcos.socialmedia.response.ErrorResponse;
@@ -102,6 +103,19 @@ public class UserController {
         catch (Exception e) {
             log.error(e.getMessage(), e);
             return new ResponseEntity<>(new ErrorResponse(e.getClass().getCanonicalName(), e.getMessage(), "/users/login"),
+                    INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/sendMail")
+    public ResponseEntity<Object> sendEmail(@RequestBody MailDto mailDto) {
+        try {
+            userService.sendMail(mailDto);
+            return ResponseEntity.ok().build();
+        }
+        catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return new ResponseEntity<>(new ErrorResponse(e.getClass().getCanonicalName(), e.getMessage(), "/users/sendMail"),
                     INTERNAL_SERVER_ERROR);
         }
     }

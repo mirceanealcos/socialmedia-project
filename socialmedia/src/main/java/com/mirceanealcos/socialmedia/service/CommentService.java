@@ -12,4 +12,6 @@ public interface CommentService {
     CommentDto updateComment(Long id, CommentUpdateDto commentDto);
     CommentDto addComment(CommentPostDto commentDto);
     List<CommentDto> findAllForPost(Long postId);
+    List<CommentDto> findAll();
+    List<CommentDto> findByKeyword(String keyword);
 }

@@ -1,5 +1,6 @@
 package com.mirceanealcos.socialmedia.service.impl;
 
+import com.mirceanealcos.socialmedia.dto.user.MailDto;
 import com.mirceanealcos.socialmedia.dto.user.UserLoginDto;
 import com.mirceanealcos.socialmedia.dto.user.UserPostDto;
 import com.mirceanealcos.socialmedia.entity.User;
@@ -13,6 +14,8 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,11 +28,13 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final Validator validator;
+    private final JavaMailSender mailSender;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, Validator validator) {
+    public UserServiceImpl(UserRepository userRepository, Validator validator, JavaMailSender mailSender) {
         this.userRepository = userRepository;
         this.validator = validator;
+        this.mailSender = mailSender;
     }
 
     @Override
@@ -98,5 +103,15 @@ public class UserServiceImpl implements UserService {
             return UserDtoMapper.toUserDto(user);
         }
         throw new LoginException();
+    }
+
+    @Override
+    public void sendMail(MailDto mailDto) throws Exception {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(mailDto.getTo());
+        message.setSubject(mailDto.getSubject());
+        message.setText(mailDto.getContent());
+        message.setFrom("socialbuggy@outlook.com");
+        mailSender.send(message);
     }
 }

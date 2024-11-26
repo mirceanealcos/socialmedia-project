@@ -15,5 +15,8 @@ public interface PostService {
     List<PostDto> findPublishedPostsByUserId(Long userId);
     List<PostDto> findPendingPostsByUserId(Long userId);
     List<PostDto> findAllPublishedPosts();
+    List<PostDto> findByKeyword(String keyword);
+    List<PostDto> findAllPendingPosts();
+    void approvePost(Long id);
 
 }

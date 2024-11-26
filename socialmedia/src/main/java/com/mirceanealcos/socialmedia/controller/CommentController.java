@@ -40,6 +40,19 @@ public class CommentController {
         }
     }
 
+    @GetMapping
+    public ResponseEntity<Object> getAll() {
+        try {
+            List<CommentDto> resultList = commentService.findAll();
+            return ResponseEntity.ok(resultList);
+        }
+        catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return new ResponseEntity<>(new ErrorResponse(e.getClass().getCanonicalName(), e.getMessage(), "/comments/"),
+                    INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteById(@PathVariable Long id) {
         try {
@@ -88,6 +101,19 @@ public class CommentController {
         catch (Exception e) {
             log.error(e.getMessage(), e);
             return new ResponseEntity<>(new ErrorResponse(e.getClass().getCanonicalName(), e.getMessage(), "/comments/post/" + id),
+                    INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/params")
+    public ResponseEntity<Object> getByParams(@RequestParam String keyword) {
+        try {
+            List<CommentDto> resultList = commentService.findByKeyword(keyword);
+            return ResponseEntity.ok(resultList);
+        }
+        catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return new ResponseEntity<>(new ErrorResponse(e.getClass().getCanonicalName(), e.getMessage(), "/comments/params?keyword=" + keyword),
                     INTERNAL_SERVER_ERROR);
         }
     }

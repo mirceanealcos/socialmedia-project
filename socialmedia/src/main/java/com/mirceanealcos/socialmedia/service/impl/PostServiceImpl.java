@@ -100,4 +100,26 @@ public class PostServiceImpl implements PostService {
         List<Post> posts = postRepository.findAllPublishedPosts();
         return posts.stream().map(PostDtoMapper::toPostDto).toList();
     }
+
+    @Override
+    public List<PostDto> findAllPendingPosts() {
+        List<Post> posts = postRepository.findAllPendingPosts();
+        return posts.stream().map(PostDtoMapper::toPostDto).toList();
+    }
+
+    @Override
+    public List<PostDto> findByKeyword(String keyword) {
+        List<Post> posts = postRepository.findByKeyword(keyword);
+        return posts.stream().map(PostDtoMapper::toPostDto).toList();
+    }
+
+    @Override
+    public void approvePost(Long id) {
+        Post post = postRepository.findById(id).orElse(null);
+        if (post == null) {
+            throw new EntityNotFoundException("Post with id " + id + " not found");
+        }
+        post.setStatus(Status.PUBLISHED);
+        postRepository.save(post);
+    }
 }

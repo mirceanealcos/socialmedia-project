@@ -1,5 +1,6 @@
 package com.mirceanealcos.socialmedia.service;
 
+import com.mirceanealcos.socialmedia.dto.user.MailDto;
 import com.mirceanealcos.socialmedia.dto.user.UserDto;
 import com.mirceanealcos.socialmedia.dto.user.UserLoginDto;
 import com.mirceanealcos.socialmedia.dto.user.UserPostDto;
@@ -14,5 +15,6 @@ public interface UserService {
     UserDto updateUser(Long id, UserPostDto userDto);
     void deleteUser(Long id);
     UserDto login(UserLoginDto loginDto) throws Exception;
+    void sendMail(MailDto mailDto) throws Exception;
 
 }
