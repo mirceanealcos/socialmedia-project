@@ -1,0 +1,36 @@
+version: "3.9"
+services:
+  socialbuggy_server:
+    build:
+      context: "./socialmedia"
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - socialbuggy_database
+
+  socialbuggy_client:
+    build:
+      context: "./socialmedia-front"
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+
+  socialbuggy_database:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin123
+      MYSQL_DATABASE: socialmedia
+      MYSQL_USER: buggy
+      MYSQL_PASSWORD: buggy
+    expose:
+      - "3306"
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
